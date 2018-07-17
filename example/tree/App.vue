@@ -112,7 +112,7 @@
   </div>
 
   <div class="col-md-9 panel panel-default">
-    <tree ref="tree" :identifier="getId" :zoomable="zoomable" :data="Graph.tree" :node-text="nodeText"  :margin-x="Marginx" :margin-y="Marginy" :radius="radius" :type="type" :layout-type="layoutType" :duration="duration" class="tree" @clicked="onClick" @expand="onExpand" @retract="onRetract"/>
+    <tree ref="tree" :identifier="getId" :zoomable="zoomable" :data="Graph.tree" :node-text="nodeText"  :margin-x="Marginx" :margin-y="Marginy" :radius="radius" :type="type" :layout-type="layoutType" :duration="duration" class="tree" @clicked="onClick" @expand="onExpand" @retract="onRetract" @mouseNodeOver="testOver" @mouseNodeOut="testOut"/>
   </div>
   
   </div>
@@ -183,6 +183,12 @@ export default {
     resetZoom () {
       this.isLoading = true
       this.$refs['tree'].resetZoom().then(() => { this.isLoading = false })
+    },
+    testOver (evt) {
+      console.log('over', evt)
+    },
+    testOut (evt) {
+      console.log('out', evt)
     }
   }
 }

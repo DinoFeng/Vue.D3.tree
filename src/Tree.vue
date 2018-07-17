@@ -194,6 +194,18 @@ export default {
           this.redraw()
           this.$emit('clicked', {element: d, data: d.data})
         })
+        // .on('mouseover', d => {
+        //   currentSelected = (currentSelected === d) ? null : d
+        //   d3.event.stopPropagation()
+        //   this.redraw()
+        //   this.$emit('mouseNodeOver', {element: d, data: d.data})
+        // })
+        // .on('mouseout', d => {
+        //   currentSelected = (currentSelected === d) ? null : d
+        //   d3.event.stopPropagation()
+        //   this.redraw()
+        //   this.$emit('mouseNodeOut', {element: d, data: d.data})
+        // })
 
       updateLinks.attr('d', d => drawLink(originBuilder(d), originBuilder(d), this.layout))
 
@@ -216,6 +228,12 @@ export default {
       allNodes
         .append('circle')
         .attr('r', this.radius)
+        .on('mouseover', d => {
+          this.$emit('mouseNodeOver', {element: d, data: d.data})
+        })
+        .on('mouseout', d => {
+          this.$emit('mouseNodeOut', {element: d, data: d.data})
+        })
 
       text.attr('x', d => { return d.textInfo ? d.textInfo.x : 0 })
           .attr('dx', function (d) { return d.textInfo ? anchorTodx(d.textInfo.anchor, this) : 0 })
